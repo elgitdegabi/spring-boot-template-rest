@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.example.template.util.stub.TemplateStub.createTemplate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -37,17 +38,16 @@ public class TemplateControllerTest {
 
     private TemplateController templateController;
 
-    /**
-     *
-     */
     @BeforeEach
     public void setUp() {
         templateController = new TemplateController(templateService);
     }
 
     /**
-     * @param templateList
-     * @param expected
+     * Executes parameterized test cases for {@link TemplateController#getAll()}
+     *
+     * @param templateList {@link List<Template>}
+     * @param expected     {@link List<Template>}
      */
     @ParameterizedTest(name = "template list: {0} - expected: {1}")
     @MethodSource("getAllTestCases")
@@ -57,9 +57,11 @@ public class TemplateControllerTest {
     }
 
     /**
-     * @param templateId
-     * @param template
-     * @param expected
+     * Executes parameterized test cases for {@link TemplateController#getById(Long)}
+     *
+     * @param templateId {@link Long}
+     * @param template   {@link Template}
+     * @param expected   {@link Template}
      */
     @ParameterizedTest(name = "id: {0} - expected: {2}")
     @MethodSource("getByIdTestCases")
@@ -69,7 +71,8 @@ public class TemplateControllerTest {
     }
 
     /**
-     *
+     * Executes {@link TemplateController#create(Template)} with valid value
+     * Expectation: a {@link Template} should be created
      */
     @Test
     void whenCreateTemplateWithValidValuesShouldReturnAddedTemplate() {
@@ -82,7 +85,8 @@ public class TemplateControllerTest {
     }
 
     /**
-     *
+     * Executes {@link TemplateController#handleMethodArgumentNotValid(MethodArgumentNotValidException)} with valid value
+     * Expectation: a {@link String} should be returned
      */
     @Test
     void whenHandleMethodArgumentNotValidShouldReturnAnExceptionMessage() {
@@ -96,21 +100,9 @@ public class TemplateControllerTest {
     }
 
     /**
-     * @param id
-     * @return
-     */
-    private static Template createTemplate(final long id) {
-        Template template = new Template();
-        template.setId(id);
-        template.setSomeCol("some col " + id);
-
-        return template;
-    }
-
-    /**
      * Generates getAll tests cases values
      *
-     * @return {@link Stream < Arguments >}
+     * @return {@link Stream<Arguments>}
      */
     private static Stream<Arguments> getAllTestCases() {
         return Stream.of(
@@ -122,7 +114,7 @@ public class TemplateControllerTest {
     /**
      * Generates getById tests cases values
      *
-     * @return {@link Stream < Arguments >}
+     * @return {@link Stream<Arguments>}
      */
     private static Stream<Arguments> getByIdTestCases() {
         return Stream.of(

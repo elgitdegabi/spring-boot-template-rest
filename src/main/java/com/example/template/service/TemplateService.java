@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
+ * Template service
  */
 @Service
 public class TemplateService {
@@ -22,15 +22,19 @@ public class TemplateService {
     }
 
     /**
-     * @return
+     * Gets a {@link List} of {@link Template}
+     *
+     * @return a {@link List<Template>}
      */
     public List<Template> getAll() {
         return templateRepository.findAll();
     }
 
     /**
-     * @param templateId
-     * @return
+     * Gets a {@link Template} from given {@link Long} template's id
+     *
+     * @param templateId {@link Long} template's id
+     * @return a {@link Template} or {@link TemplateNotFoundException} if template does not exist
      */
     public Template getTemplate(final Long templateId) {
         try {
@@ -41,8 +45,10 @@ public class TemplateService {
     }
 
     /**
-     * @param template
-     * @return
+     * Creates a {@link Template}
+     *
+     * @param template {@link Template}
+     * @return created {@link Template}
      */
     public Template create(final Template template) {
         return templateRepository.save(template);

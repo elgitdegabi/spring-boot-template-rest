@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Template controller
+ */
 @RestController
 @RequestMapping("/template")
 @Slf4j
 public class TemplateController {
+
     private final TemplateService templateService;
 
     @Autowired
@@ -23,9 +27,10 @@ public class TemplateController {
     }
 
     /**
-     * http://localhost:9200/template/
+     * Gets a {@link List} of {@link Template}
+     * IMPORTANT: http://localhost:9200/template/
      *
-     * @return
+     * @return a {@link List<Template>}
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -34,10 +39,11 @@ public class TemplateController {
     }
 
     /**
-     * http://localhost:9200/template/1
+     * Gets a {@link Template} from given {@link Long} template's id
+     * IMPORTANT: http://localhost:9200/template/1
      *
-     * @param templateId
-     * @return
+     * @param templateId {@link Long} template's id
+     * @return a {@link Template}
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -46,10 +52,11 @@ public class TemplateController {
     }
 
     /**
-     * http://localhost:9200/template/1
+     * Creates a {@link Template}
+     * IMPORTANT: http://localhost:9200/template/add
      *
-     * @param template
-     * @return
+     * @param template {@link Template}
+     * @return created {@link Template}
      */
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,13 +65,17 @@ public class TemplateController {
     }
 
     /**
-     * @param ex
-     * @return
+     * Handles {@link MethodArgumentNotValidException} thrown
+     * IMPORTANT: this method could be implemented as part of an abstract controller and inherited by others controllers
+     * that require common exception handlers
+     *
+     * @param exception {@link MethodArgumentNotValidException}
+     * @return {@link String} error message
      */
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        ex.getBindingResult().getFieldErrors().forEach(error -> log.error(error.getField() + " - " + error.getDefaultMessage()));
+    public String handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        exception.getBindingResult().getFieldErrors().forEach(error -> log.error(error.getField() + " - " + error.getDefaultMessage()));
 
         return "Error creating template";
     }

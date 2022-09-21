@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.example.template.util.stub.TemplateStub.createTemplate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -35,17 +36,16 @@ public class TemplateServiceTest {
 
     private TemplateService templateService;
 
-    /**
-     *
-     */
     @BeforeEach
     public void setUp() {
         templateService = new TemplateService(templateRepository);
     }
 
     /**
-     * @param templateList
-     * @param expected
+     * Executes parameterized test cases for {@link TemplateService#getAll()}
+     *
+     * @param templateList {@link List<Template>}
+     * @param expected     {@link List<Template>}
      */
     @ParameterizedTest(name = "template list: {0} - expected: {1}")
     @MethodSource("getAllTestCases")
@@ -55,7 +55,8 @@ public class TemplateServiceTest {
     }
 
     /**
-     *
+     * Executes {@link TemplateService#getTemplate(Long)} with valid {@link Long} id value
+     * Expectation: a {@link Template} should be returned
      */
     @Test
     void whenGetTemplateWithValidIdShouldReturnExpectedTemplate() {
@@ -67,7 +68,8 @@ public class TemplateServiceTest {
     }
 
     /**
-     *
+     * Executes {@link TemplateService#getTemplate(Long)} with no valid {@link Long} id value
+     * Expectation: a {@link TemplateNotFoundException} should be thrown
      */
     @Test
     void whenGetTemplateWithNoValidIdShouldThrowTemplateNotFoundException() {
@@ -77,7 +79,8 @@ public class TemplateServiceTest {
     }
 
     /**
-     *
+     * Executes {@link TemplateService#create(Template)} with valid value
+     * Expectation: a {@link Template} should be created
      */
     @Test
     void whenCreateTemplateWithValidValuesShouldReturnAddedTemplate() {
@@ -90,21 +93,9 @@ public class TemplateServiceTest {
     }
 
     /**
-     * @param id
-     * @return
-     */
-    private static Template createTemplate(final long id) {
-        Template template = new Template();
-        template.setId(id);
-        template.setSomeCol("some col " + id);
-
-        return template;
-    }
-
-    /**
      * Generates getAll tests cases values
      *
-     * @return {@link Stream < Arguments >}
+     * @return {@link Stream<Arguments>}
      */
     private static Stream<Arguments> getAllTestCases() {
         return Stream.of(

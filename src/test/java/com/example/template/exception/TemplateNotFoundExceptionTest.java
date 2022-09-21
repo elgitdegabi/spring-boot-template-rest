@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 public class TemplateNotFoundExceptionTest {
 
     /**
-     *
+     * Executes {@link TemplateNotFoundException#TemplateNotFoundException(String)} with valid value
+     * Expectation: a {@link TemplateNotFoundException} should be created
      */
     @Test
     void whenCreateTemplateNotFoundExceptionShouldReturnTemplateNotFoundExceptionInstance() {

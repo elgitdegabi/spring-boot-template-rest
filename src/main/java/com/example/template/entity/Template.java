@@ -1,15 +1,17 @@
 package com.example.template.entity;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- *
+ * Template entity
  */
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
